@@ -18,24 +18,21 @@ class Game:
                 self.run = False
             if e.type == pygame.KEYDOWN:
                 if e.key == pygame.K_LEFT:
-                    self.hero.move_left()
+                    pass
                 elif e.key == pygame.K_RIGHT:
-                    self.hero.move_righr()
+                    pass
                 elif e.key == pygame.K_UP:
-                    self.hero.move_up()
+                    pass
                 elif e.key == pygame.K_DOWN:
-                    self.hero.move_down()
+                    pass
             if e.type == pygame.KEYUP:
                 pass
 
     def main_loop(self):
         self.maze = maze_map.Maze()
-        self.hero = maze_map.Hero()
-        self.hero.dye((44, 103, 127))
         while self.run:
             self.actions()
             self.maze.render(self.win)
-            self.hero.render(self.win)
             pygame.display.update()
 
 
