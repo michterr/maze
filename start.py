@@ -5,9 +5,10 @@ pygame.init()
 
 class Game:
     def __init__(self):
-        self.size = (352, 352)
+        self.size = (360, 360)
         self.run = True
         self.win = self.open_window()
+        self.world = maze_map.World(self.win)
 
     def open_window(self):
         return pygame.display.set_mode(self.size)
@@ -29,10 +30,9 @@ class Game:
                 pass
 
     def main_loop(self):
-        self.maze = maze_map.Maze()
         while self.run:
             self.actions()
-            self.maze.render(self.win)
+            self.world.render_all((0, 0))
             pygame.display.update()
 
 
