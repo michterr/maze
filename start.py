@@ -22,9 +22,9 @@ class Game:
                 elif e.key == pygame.K_RIGHT:
                     self.hero.move_righr()
                 elif e.key == pygame.K_UP:
-                    pass
+                    self.hero.move_up()
                 elif e.key == pygame.K_DOWN:
-                    pass
+                    self.hero.move_down()
             if e.type == pygame.KEYUP:
                 pass
 

@@ -1,8 +1,13 @@
 import pygame
+
 pygame.init()
 
 
-class Tile:
+class World:
+    pass
+
+
+class Tile(World):
     def __init__(self):
         self.size = (32, 32)
         self.surf = pygame.Surface(self.size)
@@ -26,15 +31,30 @@ class Hero(Tile):
     def move_left(self):
         self.x -= 1
 
+    def move_up(self):
+        self.y -= 1
+
+    def move_down(self):
+        self.y += 1
+
 
 class Maze:
     def __init__(self):
-        self.createMaze()
+        self.create_maze()
 
-    def createMaze(self):
-        xline = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-        self.maze_map = [xline,xline,xline,xline,xline,xline,xline,xline,xline,xline,xline,xline,xline,xline,xline,xline,xline]
-        self.maze = pygame.Surface((len(xline) * 32, len(self.maze_map) * 32))
+    def create_maze(self):
+
+        self.maze_map = [
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
+        self.maze = pygame.Surface((len(self.maze_map[0]) * 32, len(self.maze_map) * 32))
 
     def render(self, win):
         tileFloor = Tile()
@@ -43,12 +63,10 @@ class Maze:
         for xline in self.maze_map:
             x = 0
             for loc in xline:
-                if cl == 0:
+                if loc == 1:
                     color = (0, 138, 23)
-                    cl = 1
-                elif cl == 1:
+                elif loc == 2:
                     color = (255, 172, 37)
-                    cl = 0
                 tileFloor.dye(color)
                 tileFloor.x = x
                 tileFloor.y = y
