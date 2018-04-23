@@ -6,17 +6,23 @@ class World:
         self.maze = Maze()
         self.maze.render()
         self.game_window = game_window
-        self.map_poz = (7 - self.maze.starp_poz[0], 7 - self.maze.starp_poz[1])
+        self.map_poz = [7 - self.maze.starp_poz[0], 7 - self.maze.starp_poz[1]]
         self.move_hero = (0, 0)
 
-    def render_all(self, move_hero):
-        if move_hero != (0, 0):
-            pass
-
+    def render_all(self):
+        if self.move_hero != (0, 0):
+            self.map_poz[0] += self.move_hero[0]
+            self.map_poz[1] += self.move_hero[1]
+            self.move_hero = (0, 0)
         x = self.map_poz[0]
         y = self.map_poz[1]
         self.game_window.blit(self.maze.maze_image, (x * 24, y * 24))
 
+    def animation_hero(self):
+        if self.move_hero != (0, 0):
+            self.map_poz[0] += self.move_hero[0]
+            self.map_poz[1] += self.move_hero[1]
+            self.move_hero = (0, 0)
 
 class Tile(pygame.sprite.Sprite):
     def __init__(self):
@@ -34,8 +40,6 @@ class Tile(pygame.sprite.Sprite):
             self.image.fill((0, 138, 23))
         elif color == 2:
             self.image.fill((255, 172, 37))
-
-
 
 
 class Maze:

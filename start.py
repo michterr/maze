@@ -19,20 +19,20 @@ class Game:
                 self.run = False
             if e.type == pygame.KEYDOWN:
                 if e.key == pygame.K_LEFT:
-                    pass
+                    self.world.move_hero = (1, 0)
                 elif e.key == pygame.K_RIGHT:
-                    pass
+                    self.world.move_hero = (-1, 0)
                 elif e.key == pygame.K_UP:
-                    pass
+                    self.world.move_hero = (0, 1)
                 elif e.key == pygame.K_DOWN:
-                    pass
+                    self.world.move_hero = (0, -1)
             if e.type == pygame.KEYUP:
                 pass
 
     def main_loop(self):
         while self.run:
             self.actions()
-            self.world.render_all((0, 0))
+            self.world.render_all()
             pygame.display.update()
 
 
