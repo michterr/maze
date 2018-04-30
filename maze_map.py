@@ -2,23 +2,40 @@ import pygame, unit
 pygame.init()
 
 
-class Level():
+class Level:
     def __init__(self, i):
         self.namber = i
         self.maze = Maze()
-        self.hero = unit.Hero(self.maze.hero_pozition)
         self.level_screen = pygame.Surface(self.maze.maze_size)
         self.level_maze_group = pygame.sprite.Group()
+        self.hero = unit.Hero(self.maze.hero_pozition)
         self.level_unit_group = pygame.sprite.Group()
-        self.actions = False
-
+        self.maze.add_level_groupe(self.level_maze_group)
+        self.hero.add_level_groupe(self.level_unit_group)
 
     def render(self, win):
-        self.hero.add_level_groupe(self.level_unit_group)
-        self.maze.add_level_groupe(self.level_maze_group)
         self.level_maze_group.draw(self.level_screen)
         self.level_unit_group.draw(self.level_screen)
         win.blit(self.level_screen, (0, 0))
+        self.movement()
+
+    def movement(self):
+        self.collide_wall()
+        for un in self.level_unit_group:
+            un.move_unit()
+
+    def collide_wall(self):
+        for wall in self.maze.wall:
+            if pygame.sprite.collide_rect(self.hero, wall):
+                if self.hero.movex > 0:
+                    self.hero.rect.x -= 1
+                elif self.hero.movex < 0:
+                    self.hero.rect.x += 1
+                elif self.hero.movey < 0:
+                    self.hero.rect.y += 1
+                elif self.hero.movey > 0:
+                    self.hero.rect.y -= 1
+                self.hero.movex = self.hero.movey = 0
 
 
 class Maze:

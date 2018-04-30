@@ -26,6 +26,39 @@ class Unit(Tile):
         self.movex = 0
         self.movey = 0
 
+    def add_level_groupe(self, level):
+        level.add(self)
+
+    def move_right(self):
+        if self.movex == 0:
+            self.movex = self.size[0]
+
+    def move_left(self):
+        if self.movex == 0:
+            self.movex = -self.size[0]
+
+    def move_up(self):
+        if self.movey == 0:
+            self.movey = -self.size[1]
+
+    def move_down(self):
+        if self.movey == 0:
+            self.movey = self.size[1]
+
+    def move_unit(self):
+        if self.movex > 0:
+            self.rect.x += 1
+            self.movex -= 1
+        elif self.movex < 0:
+            self.rect.x -= 1
+            self.movex += 1
+        elif self.movey < 0:
+            self.rect.y -= 1
+            self.movey += 1
+        elif self.movey > 0:
+            self.rect.y += 1
+            self.movey -= 1
+
 
 class Hero(Unit):
     def __init__(self, start_location):
@@ -33,13 +66,6 @@ class Hero(Unit):
         self.set_location(start_location[0], start_location[1])
         self.image.fill((255, 255, 255))
 
-    def move_right(self):
-        self.movex = - self.size[0]
 
-    def add_level_groupe(self, level):
-        level.add(self)
 
-    def colide1(self, wall):
-        for w in wall:
-            if pygame.sprite.collide_rect(self, w):
-                self.movex = 0
+

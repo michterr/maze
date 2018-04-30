@@ -18,21 +18,20 @@ class Game:
         self.levels.append(maze_map.Level(0))
 
     def actions(self):
-        if not self.levels[0].actions:
-            for e in pygame.event.get():
-                if e.type == pygame.QUIT:
-                    self.run = False
-                if e.type == pygame.KEYDOWN:
-                    if e.key == pygame.K_LEFT:
-                        pass
-                    elif e.key == pygame.K_RIGHT:
-                        pass
-                    elif e.key == pygame.K_UP:
-                        pass
-                    elif e.key == pygame.K_DOWN:
-                        pass
-                if e.type == pygame.KEYUP:
-                    pass
+        for e in pygame.event.get():
+            if e.type == pygame.QUIT:
+                self.run = False
+            if e.type == pygame.KEYDOWN:
+                if e.key == pygame.K_LEFT:
+                    self.levels[0].hero.move_left()
+                elif e.key == pygame.K_RIGHT:
+                    self.levels[0].hero.move_right()
+                elif e.key == pygame.K_UP:
+                    self.levels[0].hero.move_up()
+                elif e.key == pygame.K_DOWN:
+                    self.levels[0].hero.move_down()
+            if e.type == pygame.KEYUP:
+                pass
 
     def main_loop(self):
         while self.run:
