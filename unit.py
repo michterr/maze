@@ -14,10 +14,12 @@ class Tile(pygame.sprite.Sprite):
         self.rect.y = y * self.size[1]
 
     def dye(self, color):
+        floor = pygame.image.load('images\\floor.png')
+        wall = pygame.image.load('images\\wall.png')
         if color == 1:
-            self.image.fill((0, 138, 23))
+            self.image = wall
         elif color == 2:
-            self.image.fill((255, 172, 37))
+            self.image = floor
 
 
 class Unit(Tile):
@@ -64,7 +66,7 @@ class Hero(Unit):
     def __init__(self, start_location):
         Unit.__init__(self)
         self.set_location(start_location[0], start_location[1])
-        self.image.fill((255, 255, 255))
+        self.image = pygame.image.load('images\\hero.png')
 
 
 

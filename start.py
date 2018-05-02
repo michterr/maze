@@ -10,6 +10,7 @@ class Game:
         self.win = self.open_window()
         self.levels = []
         self.create_level()
+        self.clock = pygame.time.Clock()
 
     def open_window(self):
         return pygame.display.set_mode(self.size)
@@ -38,7 +39,7 @@ class Game:
             self.actions()
             self.levels[0].render(self.win)
             pygame.display.update()
-
+            self.clock.tick(60)
 
 if __name__ == '__main__':
     game = Game()
